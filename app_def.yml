@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Handles tracking and generating workout routines for basic weight training schedule.
+Resources:
+    HelloWorld:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: "Workouts::Workouts.Functions::Get"
+            Runtime: "dotnetcore1.0"
+            Policies: "AWSLambdaFullAccess"
+            Timeout: 300
+            Events:
+                HelloResource:
+                    Type: Api
+                    Properties:
+                        Path: /hello
+                        Method: get
+    GetNewWorkoutFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: "Workouts::Workouts.Functions::GetNewWorkout"
+            Runtime: "dotnetcore1.0"
+            Policies: AmazonDynamoDBReadOnlyAccess
+            Timeout: 300
+            Environment:
+                Variables:
+                    TABLE_NAME: workouts
+            Events:
+                NewWorkoutResource:
+                    Type: Api
+                    Properties:
+                        Path: /workout
+                        Method: get
+    UpdateWorkoutFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: "Workouts::Workouts.Functions::UpdateWorkout"
+            Runtime: "dotnetcore1.0"
+            Policies: AmazonDynamoDBReadOnlyAccess
+            Timeout: 300
+            Environment:
+                Variables:
+                    TABLE_NAME: workouts
+            Events:
+                UpdateWorkoutResource:
+                    Type: Api
+                    Properties:
+                        Path: /workout
+                        Method: put
+    WorkoutTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+            AttributeDefinitions:
+                -
+                    AttributeName: "Date"
+                    AttributeType: "S"
+                -
+                    AttributeName: "Exercise"
+                    AttributeType: "S"
+            KeySchema:
+                -
+                    AttributeName: "Date"
+                    KeyType: "HASH"
+                -
+                    AttributeName: "Exercise"
+                    KeyType: "RANGE"
+            ProvisionedThroughput:
+                ReadCapacityUnits: "5"
+                WriteCapacityUnits: "5"
+            TableName: "Workouts"
+        
+

@@ -1,0 +1,9 @@
+# Ignore bin directory
+bin/
+
+# Ignore obj directory
+obj/
+
+# Ignore auto-generated yaml file
+serverless-output.yml
+
