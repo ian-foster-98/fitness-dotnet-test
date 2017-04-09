@@ -1,0 +1,99 @@
+swagger: '2.0'
+info:
+  title: Workout Application API
+  description: Manage workout training information
+  version: "1.0.0"
+# the domain of the service
+host: kobj88wh4j.execute-api.ap-southeast-2.amazonaws.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /workout:
+    get:
+      summary: Workouts
+      description: |
+        The Workouts endpoint returns information about the workouts done by the caller.
+      tags:
+        - Workouts
+      responses:
+        200:
+          description: Details of the next workout to perform
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Workout'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Workouts
+      description: Update a workout with the status of an exercise.
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: Exercise object that needs to be added/updated.
+          required: true
+          schema:
+            $ref: "#/definitions/Exercise"
+      tags: 
+        - Workouts
+      responses:
+        200:
+          description: Successfully updated the workout with the new status of the exercise.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Workout:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Exercise:
+    type: object
+    properties:
+      exercise_name:
+        type: string
+        description: The name of a valid exercise in the set of available exercises.
+      weight: 
+        type: number
+        description: The weight used for this exercise.
+      status:
+        type: number
+        description: Whether the exercise was performed successfully or not.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
