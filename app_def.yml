@@ -7,6 +7,7 @@ Resources:
         Properties:
             Handler: "Workouts::Workouts.Functions::Get"
             Runtime: "dotnetcore1.0"
+            CodeUri: "bin/Release/netcoreapp1.0/publish/"
             Policies: "AWSLambdaFullAccess"
             Timeout: 300
             Events:
@@ -20,6 +21,7 @@ Resources:
         Properties:
             Handler: "Workouts::Workouts.Functions::GetNewWorkout"
             Runtime: "dotnetcore1.0"
+            CodeUri: "bin/Release/netcoreapp1.0/publish/"
             Policies: AmazonDynamoDBReadOnlyAccess
             Timeout: 300
             Environment:
@@ -36,6 +38,7 @@ Resources:
         Properties:
             Handler: "Workouts::Workouts.Functions::UpdateWorkout"
             Runtime: "dotnetcore1.0"
+            CodeUri: "bin/Release/netcoreapp1.0/publish/"
             Policies: AmazonDynamoDBReadOnlyAccess
             Timeout: 300
             Environment:
@@ -68,5 +71,4 @@ Resources:
                 ReadCapacityUnits: "5"
                 WriteCapacityUnits: "5"
             TableName: "Workouts"
-        
 
