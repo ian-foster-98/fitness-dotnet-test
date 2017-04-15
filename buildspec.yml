@@ -15,6 +15,7 @@ phases:
       - git log --pretty=format:'%h' -n 1 > build_number
       - echo Generating cloudformation template
       - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$(cat build_number).yml --s3-bucket fitness-app-workouts-code
+      - aws cloudformation deploy --template-file serverless-$(cat build_number).yml --stack-name Workouts --capabilities CAPABILITY_IAM
 
 artifacts:
   files:
