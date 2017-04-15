@@ -13,6 +13,9 @@ phases:
     commands:
       - echo Setting build number
       - git log --pretty=format:'%h' -n 1
+      - echo $SHELL
+      - export FOO=bar
+      - echo $FOO
       - BUILD_VERSION=`git log --pretty=format:'%h' -n 1`
       - echo $BUILD_VERSION
       - echo Generating cloudformation template
