@@ -3,11 +3,18 @@ version: 0.1
 phases:
   install:
     commands:
+      - echo Restoring dependant libraries
       - dotnet restore
   pre_build:
     commands:
+      - echo Compiling and packaging up code
       - dotnet lambda package
   build:
     commands:
-      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-output.yml --s3-bucket fitness-code-dotnet-input
+      - echo Generating cloudformation template
+      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-output.yml --s3-bucket fitness-app-workouts-code
+
+artifacts:
+  files:
+      - serverless-output.yml 
 
