@@ -14,9 +14,9 @@ phases:
       - BUILD=`git log --pretty=format:'%h' -n 1`
       - printenv
       - echo Generating cloudformation template
-      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-output.yml --s3-bucket fitness-app-workouts-code
+      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$BUILD.yml --s3-bucket fitness-app-workouts-code
 
 artifacts:
   files:
-      - serverless-output.yml 
+      - serverless-*.yml 
 
