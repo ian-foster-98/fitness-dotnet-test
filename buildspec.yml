@@ -12,14 +12,9 @@ phases:
   build:
     commands:
       - echo Setting build number
-      - git log --pretty=format:'%h' -n 1
-      - echo $SHELL
-      - export FOO=bar
-      - echo $FOO
-      - BUILD_VERSION=`git log --pretty=format:'%h' -n 1`
-      - echo $BUILD_VERSION
+      - git log --pretty=format:'%h' -n 1 > build_number
       - echo Generating cloudformation template
-      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$BUILD_VERSION.yml --s3-bucket fitness-app-workouts-code
+      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$(cat build_number).yml --s3-bucket fitness-app-workouts-code
 
 artifacts:
   files:
