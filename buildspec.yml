@@ -12,6 +12,7 @@ phases:
   build:
     commands:
       - echo Setting build number
+      - git log --pretty=format:'%h' -n 1
       - BUILD_VERSION=`git log --pretty=format:'%h' -n 1`
       - echo $BUILD_VERSION
       - echo Generating cloudformation template

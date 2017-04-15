@@ -6,4 +6,5 @@ ENV LAST_UPDATE=2017-04-10
 RUN apt-get update && \
     apt-get upgrade -y
 RUN apt-get install -qy python-pip
+RUN apt-get install git
 RUN pip install awscli
