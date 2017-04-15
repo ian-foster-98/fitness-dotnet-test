@@ -14,7 +14,7 @@ phases:
       - echo Setting build number
       - git log --pretty=format:'%h' -n 1 > build_number
       - python -c 'import sys; print sys.argv[1].strip().split(">")[1].split("<")[0]' $(grep "<Version>" Workouts.csproj ) > appversion
-      - python -c 'import sys; print "{0}{1}".format(sys.argv[1], sys.argv[2])' $(cat appversion) $(cat build_number ) > version
+      - python -c 'import sys; print "{0}.{1}".format(sys.argv[1], sys.argv[2])' $(cat appversion) $(cat build_number ) > version
       - echo Generating cloudformation template
       - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$(cat version).yml --s3-bucket fitness-app-workouts-code
       - aws cloudformation deploy --template-file serverless-$(cat build_number).yml --stack-name Workouts --capabilities CAPABILITY_IAM
