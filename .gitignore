@@ -5,5 +5,5 @@ bin/
 obj/
 
 # Ignore auto-generated yaml file
-serverless-output.yml
+serverless-*.yml
 

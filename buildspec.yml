@@ -11,10 +11,11 @@ phases:
       - dotnet lambda package
   build:
     commands:
-      - BUILD=`git log --pretty=format:'%h' -n 1`
-      - printenv
+      - echo Setting build number
+      - BUILD_VERSION=`git log --pretty=format:'%h' -n 1`
+      - echo $BUILD_VERSION
       - echo Generating cloudformation template
-      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$BUILD.yml --s3-bucket fitness-app-workouts-code
+      - aws cloudformation package --template-file app_def.yml --output-template-file serverless-$BUILD_VERSION.yml --s3-bucket fitness-app-workouts-code
 
 artifacts:
   files:
